@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext';
 
-function Home() {
+function HomePage() {
   return (
     <div>Home</div>
   )
 }
 
-export default Home
+export default HomePage;
