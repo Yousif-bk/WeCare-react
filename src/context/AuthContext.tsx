@@ -6,6 +6,7 @@ interface AuthContextType {
   login: (loginForm: LoginForm) => Promise<void>;
   logout: () => void;
   token: string | null;
+  setToken: (token: string | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -13,6 +14,7 @@ export const AuthContext = createContext<AuthContextType>({
   token: null,
   login: async () => {},
   logout: () => {},
+  setToken: () => {},
 });
 
 export const AuthProvider = ({ children }: any) => {
@@ -20,13 +22,12 @@ export const AuthProvider = ({ children }: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [token, setToken] = useState<string | null>(() => {
-    // Retrieve the token from local storage on component mount
-    const storedToken = localStorage.getItem("authToken");
+    const storedToken = localStorage.getItem("app:jwt");
     return storedToken ? storedToken : null;
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("app:jwt");
     if (token) {
       setIsAuthenticated(true);
     }
@@ -36,18 +37,20 @@ export const AuthProvider = ({ children }: any) => {
 
 
   const login = async (loginForm: LoginForm) => {
-    localStorage.setItem("authToken", 'auth');
-    setIsAuthenticated(true)
+    localStorage.setItem("app:jwt", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ");
+    setIsAuthenticated(true)    
     navigate('/home')
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("app:jwt");
     setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, token }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, logout, token, setToken }}
+    >
       {children}
     </AuthContext.Provider>
   );
