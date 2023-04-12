@@ -1,12 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import interceptor from "../../helper/interceptor/Interceptor";
+import { useDispatch } from 'react-redux';
+import { setProducts } from '../../actions/productActions';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const fetchData = async () => {
-       const apiUrl = process.env.REACT_APP_API_BASE_URL;
-       console.log(apiUrl, "apiiii");
     try {
       const response = await interceptor.get("/todos/1");
+      dispatch(setProducts(response.data));
+      navigate("/dashboread");
     } catch (error) {
     }
   };

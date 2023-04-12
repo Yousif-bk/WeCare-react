@@ -5,7 +5,8 @@ import { FC, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { AppRoutes } from "../models/AppRoutes";
 import HomePage from "../pages/home/home";
-import NotFound from "../components/NotFound/not-found";
+import Dashboread from "../pages/dashboread/Dashboread";
+import NotFound from "../components/NotFound/Not-found";
 
 
 interface PrivateRouteProps {
@@ -22,6 +23,7 @@ const Routes: React.FC = () => {
     <ReactRoutes>
       <Route path={AppRoutes.Auth.signUp} element={<SignUp />} />
       <Route path={AppRoutes.Auth.login} element={<Login />} />
+      <Route path="/dashboread" element={<Dashboread />} />
       <Route
         path={AppRoutes.Landing.home}
         element={<PrivateRoute element={<HomePage />} />}
