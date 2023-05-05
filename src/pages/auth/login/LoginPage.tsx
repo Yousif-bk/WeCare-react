@@ -2,7 +2,7 @@
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import { useState, useContext, useEffect } from "react";
 import * as Yup from "yup";
-import "./Login.css";
+import "./LoginPage.css";
 import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
